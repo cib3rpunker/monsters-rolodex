@@ -9,6 +9,7 @@ class App extends Component {
 
     this.state = {
       monsters: [],
+      searchField: ''
     };
   }
 
@@ -16,9 +17,6 @@ class App extends Component {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(users => (this.setState({ monsters: users })));
-      //.then(users => (console.log(users)));
-
-    //console.log('componentDidMount monsters:' , this.state.monsters);
   }
 
   render() {
@@ -26,6 +24,21 @@ class App extends Component {
 
     return (
       <div className="App">
+        <input
+          type="search"
+          placeholder="search monsters"
+          onChange={
+            // ! setState(updater, [callback])
+            // ! The second parameter to setState() is an optional callback function that will be executed once setState is completed and the component is re-rendered. Generally we recommend using componentDidUpdate() for such logic instead.
+            e => this.setState(
+              {searchField: e.target.value},
+              () => console.log('searchField: ', this.state.searchField)
+
+
+            )
+          }
+        />
+
         <CardList monsters={this.state.monsters}>
         </CardList>
       </div>
