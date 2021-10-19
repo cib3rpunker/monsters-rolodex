@@ -20,7 +20,10 @@ class App extends Component {
   }
 
   render() {
-    //console.log('render monsters:' , this.state.monsters);
+    const {monsters, searchField} = this.state;
+    const filteredMonters = monsters.filter(
+      (monster) => monster.name.toLowerCase().includes(searchField.toLowerCase())
+    );
 
     return (
       <div className="App">
@@ -28,18 +31,13 @@ class App extends Component {
           type="search"
           placeholder="search monsters"
           onChange={
-            // ! setState(updater, [callback])
-            // ! The second parameter to setState() is an optional callback function that will be executed once setState is completed and the component is re-rendered. Generally we recommend using componentDidUpdate() for such logic instead.
             e => this.setState(
-              {searchField: e.target.value},
-              () => console.log('searchField: ', this.state.searchField)
-
-
+              {searchField: e.target.value}
             )
           }
         />
 
-        <CardList monsters={this.state.monsters}>
+        <CardList monsters={filteredMonters}>
         </CardList>
       </div>
     );
