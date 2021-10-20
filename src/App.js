@@ -12,6 +12,8 @@ class App extends Component {
       monsters: [],
       searchField: '',
     };
+
+    // this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -20,8 +22,12 @@ class App extends Component {
       .then((users) => this.setState({ monsters: users }));
   }
 
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  }
+
   render() {
-    const {monsters, searchField} = this.state;
+    const { monsters, searchField } = this.state;
     const filteredMonters = monsters.filter(
       (monster) => monster.name.toLowerCase().includes(searchField.toLowerCase())
     );
@@ -30,8 +36,8 @@ class App extends Component {
       <div className="App">
         <SearchBox
           placeholder='search monsters'
-          handleChange={(e) => this.setState({ searchField: e.target.value })}>
-        </SearchBox>
+          handleChange={this.handleChange}
+        ></SearchBox>
 
         <CardList monsters={filteredMonters}/>
       </div>
